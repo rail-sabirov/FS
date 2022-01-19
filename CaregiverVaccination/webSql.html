@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="myTools.js"></script>
+        <script type="text/javascript" src="FsDb.js"></script>
+        <script type="text/javascript" src="CaregiverVaccination.js"></script>
+        <script>
+            const seeds = () => {
+                const s1 = new CaregiverVaccination("FSC-11111", "moderna", "dose1");    
+                s1.insert();
+                const s2 = new CaregiverVaccination("FSC-22222", "phizer", "dose1", "dose2", "boost");    
+                s2.insert();
+                const s3 = new CaregiverVaccination("FSC-33333", "jonsen", "dose1");    
+                s3.insert();
+                const s4 = new CaregiverVaccination("FSC-44444", "moderna", "dose1", "dose2");    
+                s4.insert();
+            };
+            //seeds();
+
+            // cg: "FSC-12345"
+            const cv = new CaregiverVaccination("FSC-12345", "moderna", "dose1", "dose2");
+
+            // cv.insert();
+            // cv.update({ dose1: "received" });
+
+            clog("values: ", cv.values());
+
+            clog('read:');
+            cv.read((arr) => { 
+                console.table(arr);
+            });
+            
+//            cv.readAll(arr => console.table(arr));
+
+//            cv.read((arr) => {console.table(arr)}, [], {caregiver_code: 'FSC-22222'});
+
+            cv2 = new CaregiverVaccination('FSC-33333');
+            
+
+            //console.log(cv.createTable());
+        </script>
+    </body>
+</html>
