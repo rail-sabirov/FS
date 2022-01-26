@@ -11,6 +11,7 @@
         <script type="text/javascript" src="FsDb.js"></script>
         <script type="text/javascript" src="CaregiverVaccination.js"></script>
         <script>
+            /*
             const seeds = () => {
                 const s1 = new CaregiverVaccination("FSC-11111", "moderna", "dose1");    
                 s1.insert();
@@ -21,13 +22,13 @@
                 const s4 = new CaregiverVaccination("FSC-44444", "moderna", "dose1", "dose2");    
                 s4.insert();
             };
-            //seeds();
+            seeds();
 
             // cg: "FSC-12345"
             const cv = new CaregiverVaccination("FSC-12345", "moderna", "dose1", "dose2");
 
-            // cv.insert();
-            // cv.update({ dose1: "received" });
+             cv.insert();
+             cv.update({ dose1: "received" });
 
             clog("values: ", cv.values());
 
@@ -41,9 +42,20 @@
 //            cv.read((arr) => {console.table(arr)}, [], {caregiver_code: 'FSC-22222'});
 
             cv2 = new CaregiverVaccination('FSC-33333');
+            cv2.read(arr => console.table(arr));
             
 
             //console.log(cv.createTable());
+
+            */
+
+            const v = JSON.parse(localStorage.getItem('fs-vaccination-db'));
+            for(caregiverCode in v) { 
+                const {vaccine, dose1, dose2, other} = v[caregiverCode];
+                const cv = new CaregiverVaccination(caregiverCode, vaccine, dose1, dose2, other);
+                cv.insert();
+            }
+
         </script>
     </body>
 </html>

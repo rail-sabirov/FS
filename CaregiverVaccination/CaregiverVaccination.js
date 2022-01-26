@@ -2,11 +2,11 @@ class CaregiverVaccination extends FsDb {
     constructor(caregiverCode, vaccine = null, dose1 = null, dose2 = null, other = null) {
         super();
 
-        this.caregiverCode = caregiverCode;
-        this.vaccine = vaccine;
-        this.dose1 = dose1;
-        this.dose2 = dose2;
-        this.other = other;
+        this.caregiverCode = caregiverCode ?? '';
+        this.vaccine = vaccine ?? '';
+        this.dose1 = dose1 ?? '';
+        this.dose2 = dose2 ?? '';
+        this.other = other ?? '';
         this.tableName = "caregiver_vaccination";
         this.mainField = 'caregiver_code';
         this.rules = {
@@ -22,8 +22,6 @@ class CaregiverVaccination extends FsDb {
         this.createIndex([this.mainField]);
 
         this.#initByCaregiverCode();
-
-        
     }
 
     #initByCaregiverCode() {
