@@ -10,10 +10,17 @@ class FsDb {
         this.#initDb();
     }
 
+    /**
+     * Creates a database on first run
+     */
     #initDb() {
         this.db = openDatabase(this.dbName, "1.0", "FiveStar DB", 2 * 1024 * 1024);
     }
 
+    /**
+     * Tramsaction - wraper for parent function
+     * @param {function} callback 
+     */
     transaction(callback) {
         this.#initDb();
         this.db.transaction((tx) => {
@@ -21,7 +28,10 @@ class FsDb {
         });
     }
 
-    // Create table for implement class
+    
+    /**
+     * Create table for implement class
+     */
     createTable() {
         this.transaction((tx) => {
             let arr = [];
@@ -40,6 +50,10 @@ class FsDb {
         });
     }
 
+    /**
+     * Create index for table fields (for implement class)
+     * @param {array} fields 
+     */
     createIndex(fields = []) {
         this.transaction(tx => {
             fields.forEach(field => {
@@ -59,6 +73,10 @@ class FsDb {
 
     }
 
+
+    /**
+     * Insert object properties to database
+     */
     insert() {
         this.transaction((tx) => {
         const fieldVal = this.values();
@@ -98,6 +116,10 @@ class FsDb {
         });
     }
 
+    /**
+     * Update table entries
+     * @param {object} object - table fields with values
+     */
     update(object = null) {
         this.transaction((tx) => {
         const values = this.values();
@@ -138,7 +160,7 @@ class FsDb {
 
     
     /**
-     * Read from DB
+     * Read from DB, use object caregiverCode value
      * @param {function} callback=null
      * @param {Array} fieldsArr=[] - Needed fields from table
      * @param {Object} whereObj={} - Conditions WHERE , 'all' -> all entries

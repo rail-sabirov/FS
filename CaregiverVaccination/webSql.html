@@ -11,6 +11,13 @@
         <script type="text/javascript" src="FsDb.js"></script>
         <script type="text/javascript" src="CaregiverVaccination.js"></script>
         <script>
+            if (typeof CaregiverVaccination == 'undefined') {
+                //loadJS('yourcode.js', yourCodeToBeCalled, document.body);
+            }
+            
+        </script>
+
+        <script>
             /*
             const seeds = () => {
                 const s1 = new CaregiverVaccination("FSC-11111", "moderna", "dose1");    

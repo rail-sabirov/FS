@@ -24,6 +24,10 @@ class CaregiverVaccination extends FsDb {
         this.#initByCaregiverCode();
     }
 
+    /**
+     * Initializing the object with data from DB,
+     * use caregiverCode
+     */
     #initByCaregiverCode() {
         this.read((item) => {
             if(item.length > 0) {
