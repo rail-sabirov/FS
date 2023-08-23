@@ -1,0 +1,10 @@
+// ==UserScript==
+// @name        FS-Archive: fill form for patient from json data
+// @namespace   FiveStar
+// @match       http://fivestararchive.com/five_star/web/index.php?r=patients%2Fcreate
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/Archive/fill_new_patient_form_with_json.js
+// @grant       none
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 8/23/2023, 12:11:10 PM
+// ==/UserScript==

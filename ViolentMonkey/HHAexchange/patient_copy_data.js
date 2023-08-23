@@ -1,13 +1,3 @@
-// ==UserScript==
-// @name        HHAexchange - copy patient data
-// @namespace   FiveStar
-// @include     https://app.hhaexchange.com/ENT*/Patient/InternalPatientInfo.aspx?PatientId=*
-// @grant       none
-// @version     1.0
-// @author      Rail-S.FiveStar
-// @description 8/23/2023, 12:11:10 PM
-// ==/UserScript==
-
 try {
   $('#ctl00_ContentPlaceHolder1_S1_InternalPatientProfileIFrame').on('click', ()=>{
     setTimeout(function() {

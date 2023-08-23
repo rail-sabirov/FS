@@ -1,13 +1,3 @@
-// ==UserScript==
-// @name        FS-Archive: fill form for patient from json data
-// @namespace   FiveStar
-// @match       http://fivestararchive.com/five_star/web/index.php?r=patients%2Fcreate
-// @grant       none
-// @version     1.0
-// @author      Rail-S.FiveStar
-// @description 8/23/2023, 12:11:10 PM
-// ==/UserScript==
-
 try {
     // Change lagel
     $('label[for="patients-first_name"]').html("First Name <span>or JSON Data</span>")
