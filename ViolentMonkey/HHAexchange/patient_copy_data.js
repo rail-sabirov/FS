@@ -31,10 +31,10 @@ try {
         // patient id
         const medicaidNumber = iframeDoc.find('td.tdbold:contains("Medicaid Number") + td > span').text()
 
-        if (medicaidNumber.length > 0) {
+        if (medicaidNumber.length > 0 && medicaidNumber !== '') {
             obj.patientId = medicaidNumber
         } else {
-            obj.patientId = $('#ctl00_ContentPlaceHolder1_PatientInfo1_uxLblPatientNumber').text() | $('#ctl00_ContentPlaceHolder1_PatientInfo1_uxLblPatientNumber').text();
+            obj.patientId = $('#ctl00_ContentPlaceHolder1_PatientInfo1_uxLblPatientNumber').text();
         }
 
         // Address
