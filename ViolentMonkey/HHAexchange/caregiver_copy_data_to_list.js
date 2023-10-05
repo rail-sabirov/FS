@@ -16,7 +16,7 @@ try {
   $('.fs-button-xls').on('click', () => {
     const obj = dataForXLS();
 
-    navigator.clipboard.writeText(JSON.stringify(obj));
+    navigator.clipboard.writeText(obj);
     alert('Caregiver Data is Copied!');
   });
 
