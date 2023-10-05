@@ -11,13 +11,36 @@ try {
         + $('#ctl00_ContentPlaceHolder1_lblLangauges').text();
   }
 
+  // Copy to clipboard
+  function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      const successful = document.execCommand('copy');
+    } catch (err) {
+      console.error('FS-Error: Fallback: Oops, unable to copy to clipboard', err);
+    }
+
+    document.body.removeChild(textArea);
+  }
+
   // Add button
   $('<div class="fs-button-xls">Copy data for List</div>').insertBefore($('#uxLblMessage'));
 
   $('.fs-button-xls').on('click', () => {
     const obj = dataForXLS();
 
-    navigator.clipboard.writeText(obj);
+    //navigator.clipboard.writeText(obj);
+    fallbackCopyTextToClipboard(obj);
+
     alert('Caregiver Data is Copied!');
   });
 
