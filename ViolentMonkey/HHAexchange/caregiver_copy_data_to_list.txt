@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        HHAexchange - copy data for XLS List
+// @namespace   FiveStar
+// @match       https://app.hhaexchange.com/ENT*10000/Aide/Aide.aspx
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/caregiver_copy_data_to_list.js
+// @grant       none
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 10/5/2023, 1:02:03 PM
+// @grant GM_addStyle
+// ==/UserScript==
