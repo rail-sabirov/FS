@@ -1,12 +1,13 @@
 try {
     function dataForXLS() {
-      return $('#uxLblPAideCode').text() + String.fromCharCode(9)
-        + $('#ctl00_ContentPlaceHolder1_uxlblInfoName').text() + String.fromCharCode(9)
-        + $('#lblHireDate').text() + String.fromCharCode(9)
-        + $('#uxLblEmploymentType').text() + String.fromCharCode(9)
-        + ' ' + String.fromCharCode(9)
-        + $('#lblLastWorkDate').text() + String.fromCharCode(9)
-        + ' ' + String.fromCharCode(9)
+      const tab = '	'; // String.fromCharCode(9)
+      return $('#uxLblPAideCode').text() + tab
+        + $('#ctl00_ContentPlaceHolder1_uxlblInfoName').text() + tab
+        + $('#lblHireDate').text() + tab
+        + $('#uxLblEmploymentType').text() + tab
+        + ' ' + tab
+        + $('#lblLastWorkDate').text() + tab
+        + ' ' + tab
         + $('#ctl00_ContentPlaceHolder1_lblLangauges').text();
   }
 
