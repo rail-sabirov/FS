@@ -1,0 +1,12 @@
+// ==UserScript==
+// @name        Bolt - stylize dropdown config
+// @namespace   FiveStar
+// @match       https://boltintakeapp.com/main/caregiver_dropdown_config
+// @match       https://boltintakeapp.com/main/dropdown_config?demographic_data
+// @grant       none
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 10/6/2023, 4:04:04 PM
+// @grant GM_addStyle
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/Bolt/stylize-dropdown-config-page.js
+// ==/UserScript==
