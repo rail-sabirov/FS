@@ -1,0 +1,10 @@
+// ==UserScript==
+// @name        HHAexchange - copy patient data to XLS list
+// @namespace   FiveStar
+// @match       https://app.hhaexchange.com/ENT*10000/Patient/InternalPatientInfo.aspx
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/patient_copy_data_XLS.js
+// @grant       none
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 10/31/2023, 1:02:03 PM
+// ==/UserScript==
