@@ -1,0 +1,10 @@
+// ==UserScript==
+// @name        Bolt - Add Caregiver Ages
+// @namespace   FiveStar
+// @match       https://boltintakeapp.com/main/caregiver_management/*
+// @grant       GM_addStyle
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 12/12/2023, 12:12:12 PM
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/Bolt/add-caregiver-ages.js
+// ==/UserScript==
