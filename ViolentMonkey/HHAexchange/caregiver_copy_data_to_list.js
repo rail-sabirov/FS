@@ -1,14 +1,16 @@
 try {
     function dataForXLS() {
-      const tab = '	'; // String.fromCharCode(9)
+      const tab = '	';
       const caregiverCode = $('#uxLblPAideCode').text();
-      const name = $('#ctl00_ContentPlaceHolder1_uxlblInfoName').text();
-      const hireDate = $('#lblHireDate').text();
+      const firstName = $('#uxLblPFirstName').text();
+      const lastName = $('#uxLblPLastName').text();
+      const dob = $('#ctl00_ContentPlaceHolder1_uxlblInfoDOB').text();
       const type = $('#uxLblEmploymentType').text();
+      const hireDate = $('#lblHireDate').text();
       const lastWorkDate = $('#lblLastWorkDate').text();
-      const lang = $('#ctl00_ContentPlaceHolder1_lblLangauges').text();
+      const LastDate = $('#uxLblDtTerminated').text();
 
-      return `${caregiverCode}	${name}	${hireDate}	${type}		${lastWorkDate}		${lang}`;
+      return `${caregiverCode}${tab}${firstName}${tab}${lastName}${tab}${dob}${tab}${type}${tab}${hireDate}${tab}${lastWorkDate}${tab}${LastDate}`;
   }
 
   // Add button
@@ -18,10 +20,10 @@ try {
     const obj = dataForXLS();
 
     navigator.clipboard.writeText(obj);
-    alert('Caregiver Data is Copied!');
+    //alert('Caregiver Data is Copied!');
   });
 
-  
+
   GM_addStyle(`
     .fs-button-xls {
         display: inline-block;
