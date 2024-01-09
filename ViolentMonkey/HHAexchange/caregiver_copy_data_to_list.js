@@ -14,7 +14,7 @@ try {
   }
 
   // Add button
-  $('<div class="fs-button-xls">Copy data for List</div>').insertBefore($('#uxLblMessage'));
+  $('<div class="fs-button-xls" title="Copy for FS-Terminated-HHA-Caregivers/google/sheets">Copy data for List</div>').insertBefore($('#uxLblMessage'));
 
   $('.fs-button-xls').on('click', () => {
     const obj = dataForXLS();
