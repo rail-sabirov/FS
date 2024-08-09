@@ -224,8 +224,8 @@ function searchQuery(queryString) {
                 <th>#</th>
                 <th>Name</th>
                 <th>Caregiver Code</th>
-                <th>Assigned ID</th>
-                <th>Ssn</th>
+                <th>Assignment ID (PIN)</th>
+                <th>SSN</th>
             </tr>
         </thead>
         <tbody>${out}</tbody>
