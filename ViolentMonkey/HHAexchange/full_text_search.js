@@ -60,7 +60,7 @@ function showSearchBlock() {
   newDiv.innerHTML = `
     <div class="header">Caregiver: Full Text Search</div>
     <div class="search-box">
-      <div class="search-box-title"><span>Search by:</span> First Name; Last Name; Caregiver Code; Assigned Id (PIN); SSN (xxx-xx-xxxx)</div>
+      <div class="search-box-title"><span>Search by:</span> First Name; Last Name; Caregiver Code; Assignment Id (PIN); SSN (xxx-xx-xxxx)</div>
       <input name="fs-full-text-query" type="text" id="fs-full-text-query">
       <button type="button" id="fs-full-text-query-button">Search</button>
     </div>
