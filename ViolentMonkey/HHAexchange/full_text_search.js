@@ -1,5 +1,3 @@
-// HHAexchange - Full Text Search
-
 const fsSearchTabName = 'fs-search-tab';
 const fsFullTextSearchTabName = 'fs-full-text-search-tab';
 
@@ -36,6 +34,15 @@ try {
       const inputValue = inputField.value;
 
       searchQuery(inputValue);
+    }
+
+    if (event.key === 'Escape') {
+        if (inputField && inputField.style.display !== 'none') {
+            inputField.value = '';
+
+            // Удаляем результат поиска
+            document.getElementById('fs-full-text-result').remove();
+        }
     }
   });
 
@@ -126,6 +133,9 @@ function switchTabsBlocks(tabName=fsSearchTabName) {
 
     fsFullTextSearchTab.classList.remove(selectedClassName);
     fsSearchTab.classList.add(selectedClassName);
+
+    // set Focus by lastName input field
+    document.getElementById('ctl00_ContentPlaceHolder1_uxtxtLastName').focus();
   }
 
   if (tabName == fsFullTextSearchTabName) {
@@ -134,6 +144,10 @@ function switchTabsBlocks(tabName=fsSearchTabName) {
 
     fsFullTextSearchTab.classList.add(selectedClassName);
     fsSearchTab.classList.remove(selectedClassName);
+
+    // set Focus on input field
+    document.getElementById('fs-full-text-query').focus();
+
   }
 
   // Сохраним выбранную закладку
