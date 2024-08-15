@@ -15,6 +15,7 @@ try {
   showSearchBlock();
   showSearchTabs();
   onClickByTabs();
+  sendByEnterInDateField()
 
   //Получаем последнее значение из LocalStorage
 
@@ -262,6 +263,21 @@ function includeWords(searchWords, text) {
   const highlightedText = text.replace(regex, "<span>$1</span>");
 
   return highlightedText;
+}
+
+// Событие на Enter в поле data при поиске Caregiver
+function sendByEnterInDateField() {
+  const dobField = document.getElementById('ctl00_ContentPlaceHolder1_uxtxtDOB');
+  dobField.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+
+        const searchBtn = document.getElementById('ctl00_ContentPlaceHolder1_uxbtnSearch');
+          if (searchBtn) {
+              searchBtn.click();
+          }
+      }
+  });
 }
 
 
