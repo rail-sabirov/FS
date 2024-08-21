@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        FS-Archive: Stylization - Caregiver personal page (arch-caregiver_stylization.js)
+// @namespace   FiveStar
+// @match       https://fivestararchive.com/five_star/web/index.php?r=caregiver%2Fview&id=*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/arch-caregiver_stylization.js
+// @grant       none
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 8/21/2024, 9:09:09 AM
+// @grant GM_addStyle
+// ==/UserScript==
