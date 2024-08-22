@@ -71,6 +71,7 @@ div#suggestions:has(.searchheading):not(:has(span.category)) {
     margin-bottom: 20px;
     padding-bottom: 5px;
     border: none;
+    border-left: 4px solid #fff;
 
   .fs-caregiver-photo {
     box-shadow: 0 0 11px 0px #72a6b982;
