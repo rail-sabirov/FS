@@ -67,10 +67,13 @@ div#suggestions:has(.searchheading):not(:has(span.category)) {
 /* ==== Caregiver photo and name field */
 .fs-caregiver-profile-section header.panel-heading.clearfix {
     background-color: #ffffff9c;
-    border-radius: 8px;
+    border-radius: 7px;
     margin-bottom: 20px;
-    padding-bottom: 5px;
+    padding-bottom: 8px;
     border: none;
+    box-shadow: -5px 0px 0px 0px white;
+    margin-left: 6px;
+}
 
   .fs-caregiver-photo {
     box-shadow: 0 0 11px 0px #72a6b982;
