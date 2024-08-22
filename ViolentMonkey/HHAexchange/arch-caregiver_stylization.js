@@ -1,7 +1,7 @@
 
 GM_addStyle(`
 
-/* ==== Fast search - Поле ввода */
+/* ==== Fast search - Поле ввода (2024.08.21) */
 #searchform div input {
 	padding-left: 10px;
 	padding-right: 10px;
@@ -67,13 +67,10 @@ div#suggestions:has(.searchheading):not(:has(span.category)) {
 /* ==== Caregiver photo and name field */
 .fs-caregiver-profile-section header.panel-heading.clearfix {
     background-color: #ffffff9c;
-    border-radius: 7px;
+    border-radius: 8px;
     margin-bottom: 20px;
-    padding-bottom: 8px;
+    padding-bottom: 5px;
     border: none;
-    box-shadow: -5px 0px 0px 0px white;
-    margin-left: 6px;
-}
 
   .fs-caregiver-photo {
     box-shadow: 0 0 11px 0px #72a6b982;
@@ -93,6 +90,46 @@ div#suggestions:has(.searchheading):not(:has(span.category)) {
     &.woman b:first-child {
       color: #f44336;
     }
+  }
+}
+
+/* ==== Edit button (2024.08.22) */
+.fsCaregiverInfoValidator {
+  & ~ p {
+    margin-top: 15px;
+    border-top: 2px solid #b9e5ff87;
+    padding-top: 10px;
+    border-radius: 0 8px 0 0;
+
+    & > a {
+      font-size: 10px;
+      color: #ffffff;
+      background-color: #399700;
+      border: 1px solid #399700;
+      border-radius: 3px;
+      padding: 0 11px;
+      margin-left: 10px;
+
+      &:after {
+        content: 'EDIT';
+        font-size: 10px;
+        color: #ffffff;
+      }
+
+      & > b {
+        display: none;
+      }
+    }
+
+
+  }
+
+  /* fixing first element */
+  & + p {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
+    border-radius: 0;
   }
 }
 
