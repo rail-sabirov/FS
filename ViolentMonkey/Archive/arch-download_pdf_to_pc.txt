@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        FS-Archive: Download pdf to PC
+// @namespace   FiveStar
+// @match       https://fivestararchive.com/five_star/web/index.php*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/Archive/arch-download_pdf_to_pc.js
+// @grant       none
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 8/27/2024, 12:12:12 PM
+// @grant GM_addStyle
+// ==/UserScript==
