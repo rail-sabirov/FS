@@ -1,11 +1,12 @@
 // ==UserScript==
-// @name        FS-Archive: Download pdf to PC
+// @name        FS-Archive: Download pdf to PC + Zip archive
 // @namespace   FiveStar
 // @match       https://fivestararchive.com/five_star/web/index.php*
 // @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/Archive/arch-download_pdf_to_pc.js
+// @require     https://cdn.jsdelivr.net/npm/@zip.js/zip.js@2.7.16/dist/zip.min.js
 // @grant       none
-// @version     1.0
+// @version     2.0
 // @author      Rail-S.FiveStar
-// @description 8/27/2024, 12:12:12 PM
+// @description Смена поведения получения файлов
 // @grant GM_addStyle
 // ==/UserScript==
