@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        hha.fs - SET Data from HHAexchange
+// @namespace   FiveStar
+// @match       http*://*.hhaexchange.com/ENT*010000/*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/hha.fs_set_data_from_HHAex.js
+// @grant       none
+// @version     1.0
+// @author      Rail-S
+// @description 10/9/2024, 8:15:06 AM
+// @grant GM_xmlhttpRequest
+// ==/UserScript==
