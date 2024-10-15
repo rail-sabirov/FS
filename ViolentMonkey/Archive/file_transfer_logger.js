@@ -85,9 +85,9 @@ window.onload = function () {
             let fileAndStates = [];
 
             for (let i = 0; i < newFileIds.length; i++) {
-              fileAndStates.push({ fileId: newFileIds[i], state: apiResult[newFileIds[i]] });
+              fileAndStates.push({ fileId: newFileIds[i], state: apiResult[newFileIds[i]] || 0 });
             }
-            console.log('--> fileAndStates:', JSON.stringify(fileAndStates));
+
             // POST /file-state  - save new files[newFiles]
             GM_xmlhttpRequest({
               method: 'POST',
@@ -99,6 +99,7 @@ window.onload = function () {
                 files: fileAndStates, //newFileIds, //const files = JSON.stringify([{fileId: 1, state: 1}, {fileId: 2, state: 0}]);
               }), // Тело запроса в формате JSON
               onload: function (response) {
+                console.log('--> fileAndStates:', JSON.stringify(fileAndStates));
                 console.log(`We save: ${newFileIds.length} files - Response:`, response.responseText);
               },
               onerror: function (error) {
