@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name        FS-Archive: Download pdf to PC + Zip archive
+// @name        FS-Archive: Caregiver - Download pdf to PC + Zip archive
 // @namespace   FiveStar
-// @match       https://fivestararchive.com/five_star/web/index.php*
-// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/Archive/arch-download_pdf_to_pc.js
+// @match       *://fivestararchive.com/five_star/web/index.php?r=caregiver%2Fview&id=*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/Archive/arch-download_pdf_to_pc.js?version=2
 // @require     https://cdn.jsdelivr.net/npm/@zip.js/zip.js@2.7.16/dist/zip.min.js
 // @grant       none
 // @version     2.0

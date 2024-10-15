@@ -1,0 +1,12 @@
+// ==UserScript==
+// @name        FS-Archive: File Transfer Logger
+// @namespace   Violentmonkey Scripts
+// @match       *://fivestararchive.com/five_star/web/index.php?r=*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/Archive/file_transfer_logger.js
+// @grant       none
+// @version     1.0
+// @author      -
+// @description 10/1/2024, 12:14:37 PM
+// @grant GM_xmlhttpRequest
+// @grant GM_addStyle
+// ==/UserScript==
