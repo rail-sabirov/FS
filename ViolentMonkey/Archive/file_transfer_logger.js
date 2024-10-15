@@ -1,4 +1,3 @@
-
 //const apiUrl = 'http://localhost:3002';
 const apiUrl = 'http://transfer.hha.fs';
 const caregiverListUrl = location.href.match(/http[s]?:\/\/fivestararchive\.com\/five_star\/web\/index.php\?r=caregiver(%2F|\/)index.*/gm);
@@ -83,16 +82,21 @@ window.onload = function () {
           const newFileIds = arrDifference(fileIds, objKeys);
 
           if (newFileIds.length > 0) {
+            let fileAndStates = [];
+
+            for (let i = 0; i < newFileIds.length; i++) {
+              fileAndStates.push({ fileId: newFileIds[i], state: apiResult[newFileIds[i]] });
+            }
+
             // POST /file-state  - save new files[newFiles]
             GM_xmlhttpRequest({
               method: 'POST',
-              url: `${apiUrl}/file-state`,
+              url: `${apiUrl}/save-files`,
               headers: { 'Content-Type': 'application/json' },
               data: JSON.stringify({
-                type: personType,
+                personType: personType,
                 personId: caregiverId,
-                fileId: newFileIds,
-                state: 0,
+                files: JSON.stringify(fileAndStates), //newFileIds, //const files = JSON.stringify([{fileId: 1, state: 1}, {fileId: 2, state: 2}]);
               }), // Тело запроса в формате JSON
               onload: function (response) {
                 console.log(`We save: ${newFileIds.length} files - Response:`, response.responseText);
