@@ -51,7 +51,6 @@ window.onload = function () {
   // --- Персональная страница Caregiver - person page ---
   if (caregiverPersonalPage) {
     const caregiverId = new URLSearchParams(window.location.search).get('id');
-
     let fileIds = [];
 
     // ==== Создаем столбец в таблице с количеством файлов ====
@@ -76,7 +75,6 @@ window.onload = function () {
         const apiResult = JSON.parse(response.responseText);
 
         // === Добавляем файлы если их нет в БД
-        console.log('New files:', fileIds.length > 0, Object.keys(apiResult).length < fileIds.length);
         if (fileIds.length > 0 && Object.keys(apiResult).length < fileIds.length) {
           const objKeys = Object.keys(apiResult);
           const newFileIds = arrDifference(fileIds, objKeys);
@@ -96,10 +94,9 @@ window.onload = function () {
               data: JSON.stringify({
                 personType: personType,
                 personId: caregiverId,
-                files: fileAndStates, //newFileIds, //const files = JSON.stringify([{fileId: 1, state: 1}, {fileId: 2, state: 0}]);
-              }), // Тело запроса в формате JSON
+                files: fileAndStates, // --> [{fileId: 11111, state: 1}, {fileId: 11112, state: 0}];
+              }),
               onload: function (response) {
-                console.log('--> fileAndStates:', JSON.stringify(fileAndStates));
                 console.log(`We save: ${newFileIds.length} files - Response:`, response.responseText);
               },
               onerror: function (error) {
@@ -216,7 +213,7 @@ window.onload = function () {
           // some file added ----------- ADDED NEW FILE
           const newFiles = arrDifference(curFilesIds, savedFileList);
 
-          console.log('Added new files: ', newFiles);
+          console.log('Added new files ids: ', newFiles);
 
           // POST /file-state  - save new files[newFiles]
           GM_xmlhttpRequest({
@@ -252,9 +249,7 @@ window.onload = function () {
           console.log(`personFiles(${curFilesIds.length}) !== File cound from list (${personIds.length})`);
 
           // Сохраняем файлы в базу со статусом 0 или текущим
-
           document.querySelectorAll('input.file-state-checkbox').forEach((el) => {
-            console.log(el);
             // => [{fileId":10, "state":0}, {fileId":11, "state":0}]
             filesAndState.push({ fileId: el.value, state: el.checked ? 1 : 0 });
           });
