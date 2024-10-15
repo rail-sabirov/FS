@@ -1,8 +1,3 @@
-/*
- * Caregiver list
- * https://fivestararchive.com/five_star/web/index.php?r=caregiver%2Findex
- * https://fivestararchive.com/five_star/web/index.php?r=caregiver%2Findex&page=4&per-page=10
- */
 
 //const apiUrl = 'http://localhost:3002';
 const apiUrl = 'http://transfer.hha.fs';
@@ -245,6 +240,22 @@ window.onload = function () {
       } else {
         // localStorage don't has this key - change page URL
         localStorage.setItem(lsKey, JSON.stringify({ [curUrl]: curFilesIds }));
+
+        const filesAndState = [];
+        // Новая страница, проверим количество файлов и количество из списка
+        if (personIds.length == 0 && personIds.length !== curFilesIds.length) {
+          console.log(`personFiles(${curFilesIds.length}) !== File cound from list (${personIds.length})`);
+
+          // Сохраняем файлы в базу со статусом 0 или текущим
+
+          document.querySelectorAll('input.file-state-checkbox').forEach((el) => {
+            console.log(el);
+            // => [{fileId":10, "state":0}, {fileId":11, "state":0}]
+            filesAndState.push({ fileId: el.value, state: el.checked ? 1 : 0 });
+          });
+        }
+
+        console.log('send for group save:', filesAndState);
       }
     }
   }
