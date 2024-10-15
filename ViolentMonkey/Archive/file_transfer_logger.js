@@ -96,7 +96,7 @@ window.onload = function () {
               data: JSON.stringify({
                 personType: personType,
                 personId: caregiverId,
-                files: JSON.stringify(fileAndStates), //newFileIds, //const files = JSON.stringify([{fileId: 1, state: 1}, {fileId: 2, state: 2}]);
+                files: fileAndStates, //newFileIds, //const files = JSON.stringify([{fileId: 1, state: 1}, {fileId: 2, state: 2}]);
               }), // Тело запроса в формате JSON
               onload: function (response) {
                 console.log(`We save: ${newFileIds.length} files - Response:`, response.responseText);
