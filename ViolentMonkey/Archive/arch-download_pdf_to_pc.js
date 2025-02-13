@@ -13,24 +13,21 @@ try {
       const url = new URL(el.href);
       return url.searchParams.get('id');
     };
-    console.log('-2-');
 
     downloadLinks.forEach((el) => {
       const id = getIdFromUrl(el);
-      console.log(`id: ${id}`);
       const fileName = generateFileName(el);
       console.log(`fileName: ${fileName}`);
       el.setAttribute('href', '#');
       el.setAttribute('onclick', `archDownloadFile(${id}, '${fileName}', this)`);
     });
   }
-  console.log('-3-');
+
   /* ====== Group download files - button ====== */
   // start actions on specefic page
   if (/id=\d{1,8}$/.test(window.location.search)) {
     // After paged will be ready
     window.addEventListener('load', function () {
-      console.log('-4-');
       // show button
       const fsDocumentPanel = document.querySelector('.fs-tab-area .panel-heading');
 
@@ -193,18 +190,16 @@ function addDOMScriptNode(funcText, funcSrcUrl, funcToRun) {
 
 function generateFileName(el) {
   const tr = el.closest('tr');
-  console.group('-- generateFileName(el) --');
+
   const prepareSectionName = (sectionName) => {
     const regex = new RegExp('[\\s\\(\\)\\[\\]\\/]', 'gm');
-    console.log(`-1-`);
+
     return sectionName.replace(regex, ``);
   };
-  console.log(`-2-`);
+
   const sectionName = prepareSectionName(tr.querySelector('td:nth-child(2) a').innerText);
   const fileName = tr.querySelector('td:nth-child(3)').innerText.trim();
 
-  console.log(`${sectionName}_${fileName}`);
-  console.groupEnd();
   return `${sectionName}_${fileName}`;
 }
 
