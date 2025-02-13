@@ -1,5 +1,4 @@
-
-const btnText = `Download all files like zip-archive`
+const btnText = `Download all files like zip-archive`;
 
 // Append function to DOM
 addDOMScriptNode(null, null, archDownloadFile);
@@ -11,44 +10,47 @@ try {
 
   if (downloadLinks.length) {
     const getIdFromUrl = (el) => {
-        const url = new URL(el.href);
-        return url.searchParams.get('id');
+      const url = new URL(el.href);
+      return url.searchParams.get('id');
     };
+    console.log('-2-');
 
     downloadLinks.forEach((el) => {
-        const id = getIdFromUrl(el);
-        const fileName = generateFileName(el);
-
-        el.setAttribute('href', '#');
-        el.setAttribute('onclick', `archDownloadFile(${id}, '${fileName}', this)`);
+      const id = getIdFromUrl(el);
+      console.log(`id: ${id}`);
+      const fileName = generateFileName(el);
+      console.log(`fileName: ${fileName}`);
+      el.setAttribute('href', '#');
+      el.setAttribute('onclick', `archDownloadFile(${id}, '${fileName}', this)`);
     });
   }
-
+  console.log('-3-');
   /* ====== Group download files - button ====== */
   // start actions on specefic page
-  if(/id=\d{1,8}$/.test(window.location.search)) {
+  if (/id=\d{1,8}$/.test(window.location.search)) {
     // After paged will be ready
-    window.addEventListener('load', function() {
-        // show button
-        const fsDocumentPanel = document.querySelector('.fs-tab-area .panel-heading');
+    window.addEventListener('load', function () {
+      console.log('-4-');
+      // show button
+      const fsDocumentPanel = document.querySelector('.fs-tab-area .panel-heading');
 
-        if (!!fsDocumentPanel) {
-            const groupButton = document.createElement('button');
-            fsDocumentPanel.classList.add('fs-doc-panel-header');
+      if (fsDocumentPanel) {
+        const groupButton = document.createElement('button');
+        fsDocumentPanel.classList.add('fs-doc-panel-header');
 
-            groupButton.classList.add('fs-group-download-pdf-button');
-            groupButton.innerText = btnText;
-            groupButton.title = btnText;
+        groupButton.classList.add('fs-group-download-pdf-button');
+        groupButton.innerText = btnText;
+        groupButton.title = btnText;
 
-            fsDocumentPanel.appendChild(groupButton);
+        fsDocumentPanel.appendChild(groupButton);
 
-            // group button click action
-            const btn = document.querySelector('.fs-group-download-pdf-button');
-            btn.addEventListener('click', () => {
-              if (!document.getElementById('fs-file-list-dialog')) {
-                const fsFileListDialog = document.createElement('dialog');
-                fsFileListDialog.id = 'fs-file-list-dialog';
-                fsFileListDialog.innerHTML = `
+        // group button click action
+        const btn = document.querySelector('.fs-group-download-pdf-button');
+        btn.addEventListener('click', () => {
+          if (!document.getElementById('fs-file-list-dialog')) {
+            const fsFileListDialog = document.createElement('dialog');
+            fsFileListDialog.id = 'fs-file-list-dialog';
+            fsFileListDialog.innerHTML = `
                   <div class="fs-file-list-modal-content">
                       <div class="header">
                         <h2>Select Files to download</h2>
@@ -61,135 +63,126 @@ try {
                   </div>
                 `;
 
-                fsDocumentPanel.appendChild(fsFileListDialog);
+            fsDocumentPanel.appendChild(fsFileListDialog);
+          }
+
+          const modal = document.getElementById('fs-file-list-dialog');
+          const fileListBody = modal.querySelector('.body');
+          const fsFileListCloseBtn = modal.querySelector('#fs-file-list-closeBtn');
+          const fsFileListSubmitBtn = modal.querySelector('#fs-file-list-send');
+
+          // Clear body - file list
+          fileListBody.innerHTML = '';
+
+          // Fill body with file list
+          {
+            const files = document.querySelectorAll('a[href*="opendoc"]');
+
+            if (files.length) {
+              let options = '';
+              const ul = document.createElement('ul');
+              ul.id = 'fs-file-list-selector';
+
+              files.forEach((fl) => {
+                const url = new URL(fl.href);
+                const id = url.searchParams.get('id');
+                const tr = fl.closest('tr');
+                const section = tr.querySelector('td:nth-child(2) a').innerText;
+                const fileName = tr.querySelector('td:nth-child(3)').innerText.trim();
+
+                tr.setAttribute('data-id', id);
+
+                options += `<li value="${id}"><label><input type="checkbox" name="${id}" checked />${section} (${fileName})</label></li>`;
+              });
+
+              ul.innerHTML = options;
+              fileListBody.appendChild(ul);
+            }
+          }
+
+          modal.show();
+
+          // close dialog
+          fsFileListCloseBtn.onclick = () => {
+            modal.close();
+            fileListBody.innerHTML = '';
+          };
+
+          // submit button
+          fsFileListSubmitBtn.onclick = (e) => {
+            const checkedFiles = fileListBody.querySelectorAll('input[type=checkbox]:checked');
+
+            if (checkedFiles.length > 0) {
+              const files = [];
+
+              checkedFiles.forEach((el) => {
+                const id = el.name;
+                const aTag = document.querySelector(`a[data-file-id="${id}"]`);
+                const curFileName = generateFileName(aTag);
+
+                // Start download animation
+                document.querySelector(`tr[data-id="${id}"]`).classList.add('fsUploadBgAnimation');
+
+                // Add file to array
+                files.push({
+                  id: id,
+                  name: curFileName,
+                });
+              });
+
+              // Generate ZIP archive
+              if (files.length > 0) {
+                const name = document.querySelector('.fs-caregiver-name b:first-child').innerText.trim().replaceAll(' ', '_');
+
+                // Generate Zip file
+                (async () => {
+                  await buildZip(files, name);
+                })();
               }
-
-
-              const modal = document.getElementById('fs-file-list-dialog');
-              const fileListBody = modal.querySelector('.body');
-              const fsFileListCloseBtn = modal.querySelector('#fs-file-list-closeBtn');
-              const fsFileListSubmitBtn = modal.querySelector('#fs-file-list-send');
-
-              // Clear body - file list
-              fileListBody.innerHTML = '';
-
-              // Fill body with file list
-              {
-                const files = document.querySelectorAll('a[href*="opendoc"]');
-
-                if(files.length) {
-                  let options = '';
-                  const ul = document.createElement('ul');
-                  ul.id = 'fs-file-list-selector';
-
-                  files.forEach(fl => {
-                    const url = new URL(fl.href);
-                    const id = url.searchParams.get('id');
-                    const tr = fl.closest('tr');
-                    const section = tr.querySelector('td:first-child a').innerText;
-                    const fileName = tr.querySelector('td:nth-child(2)').innerText.trim();
-
-                    tr.setAttribute('data-id', id);
-
-                    options += `<li value="${id}"><label><input type="checkbox" name="${id}" checked />${section} (${fileName})</label></li>`;
-
-                  });
-
-                  ul.innerHTML = options;
-                  fileListBody.appendChild(ul);
-                }
-              }
-
-              modal.show();
-
-              // close dialog
-              fsFileListCloseBtn.onclick = () => {
-                modal.close();
-                fileListBody.innerHTML = '';
-              };
-
-              // submit button
-              fsFileListSubmitBtn.onclick = (e) => {
-                const checkedFiles = fileListBody.querySelectorAll('input[type=checkbox]:checked');
-
-                if (checkedFiles.length > 0) {
-                  const files = [];
-
-
-                  checkedFiles.forEach(el => {
-                    const id = el.name;
-                    const aTag = document.querySelector(`a[data-file-id="${id}"]`);
-                    const curFileName = generateFileName(aTag);
-
-                    // Start download animation
-                    document.querySelector(`tr[data-id="${id}"]`).classList.add('fsUploadBgAnimation');
-
-                    // Add file to array
-                    files.push({
-                      "id": id,
-                      "name": curFileName
-                    });
-
-                  });
-
-                  // Generate ZIP archive
-                  if (files.length > 0) {
-                    const name = document.querySelector('.fs-caregiver-name b:first-child').innerText.trim().replaceAll(' ','_');
-
-                    // Generate Zip file
-                    (async () => {
-                        await buildZip(files, name);
-                    })();
-                  }
-                }
-              };
-            });
-
-
-        }
+            }
+          };
+        });
+      }
     });
-
   }
 } catch {}
 
 /* =============== Functions ================== */
-function archDownloadFile(id, fileName='', element) {
-    const url = `${document.location.origin}${document.location.pathname}?r=caregiver%2Fdownload-file&id=${id}`;
+function archDownloadFile(id, fileName = '', element) {
+  const url = `${document.location.origin}${document.location.pathname}?r=caregiver%2Fdownload-file&id=${id}`;
 
-    const tr = element.closest('tr');
-    tr.classList.add('fsUploadBgAnimation');
+  const tr = element.closest('tr');
+  tr.classList.add('fsUploadBgAnimation');
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.blob();
-        })
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            tr.classList.remove('fsUploadBgAnimation');
-        })
-        .catch(error => console.error('There was a problem with the fetch operation:', error));
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.blob();
+    })
+    .then((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      tr.classList.remove('fsUploadBgAnimation');
+    })
+    .catch((error) => console.error('There was a problem with the fetch operation:', error));
 }
 
-function addDOMScriptNode (funcText, funcSrcUrl, funcToRun) {
+function addDOMScriptNode(funcText, funcSrcUrl, funcToRun) {
   const scriptNode = document.createElement('script');
-  scriptNode.type = "text/javascript";
+  scriptNode.type = 'text/javascript';
 
   if (funcText) {
     scriptNode.textContent = funcText;
-
   } else if (funcSrcUrl) {
     scriptNode.src = funcSrcUrl;
-
   } else if (funcToRun) {
     scriptNode.textContent = funcToRun.toString();
   }
@@ -199,18 +192,21 @@ function addDOMScriptNode (funcText, funcSrcUrl, funcToRun) {
 }
 
 function generateFileName(el) {
-    const tr = el.closest('tr');
-    const prepareSectionName = (sectionName) => {
-        const regex = new RegExp('[\\s\\(\\)\\[\\]\\/]', 'gm');
+  const tr = el.closest('tr');
+  console.group('-- generateFileName(el) --');
+  const prepareSectionName = (sectionName) => {
+    const regex = new RegExp('[\\s\\(\\)\\[\\]\\/]', 'gm');
+    console.log(`-1-`);
+    return sectionName.replace(regex, ``);
+  };
+  console.log(`-2-`);
+  const sectionName = prepareSectionName(tr.querySelector('td:nth-child(2) a').innerText);
+  const fileName = tr.querySelector('td:nth-child(3)').innerText.trim();
 
-        return sectionName.replace(regex, ``);
-    }
-    const sectionName = prepareSectionName(tr.querySelector('td:first-child a').innerText);
-    const fileName = tr.querySelector('td:nth-child(2)').innerText.trim();
-
-    return `${sectionName}_${fileName}`;
-};
-
+  console.log(`${sectionName}_${fileName}`);
+  console.groupEnd();
+  return `${sectionName}_${fileName}`;
+}
 
 /*
  * // Download group files as zip archive
@@ -223,41 +219,38 @@ function generateFileName(el) {
   ];
  * */
 async function buildZip(fileUrls, name) {
-      const outputFileName = `${name}.zip`;
+  const outputFileName = `${name}.zip`;
 
-      const writer = new zip.ZipWriter(new zip.BlobWriter("application/zip"));
+  const writer = new zip.ZipWriter(new zip.BlobWriter('application/zip'));
 
-      for (const url of fileUrls) {
-          const urlString = `${document.location.origin}${document.location.pathname}?r=caregiver%2Fdownload-file&id=${url.id}`
-          const response = await fetch(urlString, { method: 'GET', credentials: 'same-origin' });
+  for (const url of fileUrls) {
+    const urlString = `${document.location.origin}${document.location.pathname}?r=caregiver%2Fdownload-file&id=${url.id}`;
+    const response = await fetch(urlString, { method: 'GET', credentials: 'same-origin' });
 
-          if (response.ok) {
-              const blob = await response.blob();
-              const fileName = url.name;
-              await writer.add(fileName, new zip.BlobReader(blob));
+    if (response.ok) {
+      const blob = await response.blob();
+      const fileName = url.name;
+      await writer.add(fileName, new zip.BlobReader(blob));
 
-              document.querySelector(`tr[data-id="${url.id}"]`).classList.remove('fsUploadBgAnimation');
-              document.getElementById('fs-file-list-dialog').close();
-          } else {
-              console.error(`File loading ERROR! File: ${url.name}`);
-          }
-      }
+      document.querySelector(`tr[data-id="${url.id}"]`).classList.remove('fsUploadBgAnimation');
+      document.getElementById('fs-file-list-dialog').close();
+    } else {
+      console.error(`File loading ERROR! File: ${url.name}`);
+    }
+  }
 
-      const zipBlob = await writer.close();
+  const zipBlob = await writer.close();
 
-      // Get Zip file
-      const downloadUrl = URL.createObjectURL(zipBlob);
-      const a = document.createElement("a");
-      a.href = downloadUrl;
-      a.download = outputFileName;
-      a.click();
-      URL.revokeObjectURL(downloadUrl);
+  // Get Zip file
+  const downloadUrl = URL.createObjectURL(zipBlob);
+  const a = document.createElement('a');
+  a.href = downloadUrl;
+  a.download = outputFileName;
+  a.click();
+  URL.revokeObjectURL(downloadUrl);
 
-      // Close dialog
+  // Close dialog
 }
-
-
-
 
 /* =============== Styles =================== */
 GM_addStyle(`
