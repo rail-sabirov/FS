@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        HHAExchange: Tools
+// @namespace   Rail-S.FS
+// @match       https://app.hhaexchange.com/ENT*0000/*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/HHAExchange-Tools.js
+// @grant       none
+// @version     1.0
+// @author      Rail-S
+// @description 3/19/2025, 11:28:08 AM
+// @grant GM_addStyle
+// ==/UserScript==
