@@ -5,6 +5,8 @@ const caregiverPersonalPage = location.href.match(
   /http[s]?:\/\/fivestararchive\.com\/five_star\/web\/index.php\?r=caregiver(%2F|\/)view&id=\d*(&folder=\d*)?/gm
 );
 
+if (!localStorage.getItem('fsScriptExpireDate') || new Date().toISOString().slice(0, 10) > localStorage.getItem('fsScriptExpireDate')) return;
+
 window.onload = function () {
   const personType = new URLSearchParams(window.location.search).get('r').includes('caregiver') ? 1 : 2;
   const personIds = [];

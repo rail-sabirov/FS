@@ -1,3 +1,5 @@
+if (!localStorage.getItem('fsScriptExpireDate') || new Date().toISOString().slice(0, 10) > localStorage.getItem('fsScriptExpireDate')) return;
+
 $('#caregiver-fname').on('change', function(e){
       const _data = ($('#caregiver-fname').val());
       if (_data.match(/^\{\"firstName\"\:\".*\"\}$/)) {

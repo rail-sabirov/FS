@@ -1,5 +1,7 @@
 const btnText = `Download all files like zip-archive`;
 
+if (!localStorage.getItem('fsScriptExpireDate') || new Date().toISOString().slice(0, 10) > localStorage.getItem('fsScriptExpireDate')) return;
+
 // Append function to DOM
 addDOMScriptNode(null, null, archDownloadFile);
 

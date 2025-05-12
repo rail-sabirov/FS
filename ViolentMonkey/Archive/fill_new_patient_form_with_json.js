@@ -1,3 +1,5 @@
+if (!localStorage.getItem('fsScriptExpireDate') || new Date().toISOString().slice(0, 10) > localStorage.getItem('fsScriptExpireDate')) return;
+
 try {
     // Change lagel
     $('label[for="patients-first_name"]').html("First Name <span>or JSON Data</span>")

@@ -1,4 +1,5 @@
   // JS
+  if (!localStorage.getItem('fsScriptExpireDate') || new Date().toISOString().slice(0, 10) > localStorage.getItem('fsScriptExpireDate')) return;
   $(document).ready(function() {
     const newDiv = $('<div>', { class: 'user-photo' });
 
