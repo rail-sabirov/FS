@@ -146,6 +146,10 @@ try {
   }
 } catch {}
 
+
+
+
+
 /* =============== Functions ================== */
 function archDownloadFile(id, fileName = '', element) {
   const url = `${document.location.origin}${document.location.pathname}?r=caregiver%2Fdownload-file&id=${id}`;
@@ -248,6 +252,43 @@ async function buildZip(fileUrls, name) {
 
   // Close dialog
 }
+
+
+const closeBtn = document.getElementById('fs-file-list-closeBtn');
+const newBtn = document.createElement('button');
+let btnTitle = "Only Unchecked!";
+newBtn.id="onlyUnchecked";
+newBtn.textContent = btnTitle;
+newBtn.addEventListener('click', selectOnlyUnchecked)
+closeBtn.parentNode.insertBefore(newBtn, closeBtn);
+
+function selectOnlyUnchecked() {
+    const uncheckedPosidions = [];
+    document.querySelectorAll('.transfer-checkbox:not(:checked)').forEach(unCh => {
+        uncheckedPosidions.push(unCh.dataset.docId);
+    });
+
+    document.querySelectorAll('#fs-file-list-selector li input[type="checkbox"]').forEach(el => {
+        if(!uncheckedPosidions.includes(el.name)) {
+            el.checked = false;
+        }
+    });
+
+    newBtn.textContent="Select All";
+    newBtn.removeEventListener('click', selectOnlyUnchecked);
+    newBtn.addEventListener('click', selectAll)
+}
+
+function selectAll() {
+    document.querySelectorAll('#fs-file-list-selector li input[type="checkbox"]').forEach(el => {
+        el.checked = true;
+    });
+
+    newBtn.textContent = btnTitle;
+    newBtn.removeEventListener('click', selectAll)
+    newBtn.addEventListener('click', selectOnlyUnchecked);
+}
+
 
 /* =============== Styles =================== */
 GM_addStyle(`
@@ -380,5 +421,22 @@ GM_addStyle(`
     }
 
 
+  }
+
+  #fs-file-list-dialog {
+    top: 100px;
+    width: 500px;
+  }
+
+  button#onlyUnchecked {
+      border-radius: 4px;
+      border: 1px solid green;
+      background-color: green;
+      height: 20px;
+      font-size: 12px;
+      color: white;
+      padding: 0 10px;
+      line-height: 20px;
+      margin-right: 20px;
   }
 `);
