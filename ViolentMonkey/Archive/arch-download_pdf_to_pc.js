@@ -63,6 +63,44 @@ try {
                 `;
 
             fsDocumentPanel.appendChild(fsFileListDialog);
+
+
+
+             // add only unchecked button
+             const closeBtn = document.getElementById('fs-file-list-closeBtn');
+             const newBtn = document.createElement('button');
+             let btnTitle = "Only Unchecked!";
+             newBtn.id="onlyUnchecked";
+             newBtn.textContent = btnTitle;
+             newBtn.addEventListener('click', selectOnlyUnchecked)
+             closeBtn.parentNode.insertBefore(newBtn, closeBtn);
+            
+            function selectOnlyUnchecked() {
+              const uncheckedPosidions = [];
+              document.querySelectorAll('.transfer-checkbox:not(:checked)').forEach(unCh => {
+                  uncheckedPosidions.push(unCh.dataset.docId);
+              });
+
+              document.querySelectorAll('#fs-file-list-selector li input[type="checkbox"]').forEach(el => {
+                  if(!uncheckedPosidions.includes(el.name)) {
+                      el.checked = false;
+                  }
+              });
+
+              newBtn.textContent="Select All";
+              newBtn.removeEventListener('click', selectOnlyUnchecked);
+              newBtn.addEventListener('click', selectAll)
+          }
+
+          function selectAll() {
+              document.querySelectorAll('#fs-file-list-selector li input[type="checkbox"]').forEach(el => {
+                  el.checked = true;
+              });
+
+              newBtn.textContent = btnTitle;
+              newBtn.removeEventListener('click', selectAll)
+              newBtn.addEventListener('click', selectOnlyUnchecked);
+          }
           }
 
           const modal = document.getElementById('fs-file-list-dialog');
@@ -142,7 +180,49 @@ try {
           };
         });
       }
+
+      // Add BUTTON for checking the transfer "select" checkbox
+      const buttonText01 = 'Check all transfer';
+      try {
+        const targetElement = document.querySelector('header.panel-heading.fs-doc-panel-header strong');
+        if(targetElement) {
+          // Create the button
+          const newButton = document.createElement('button');
+          newButton.textContent = buttonText01;
+          newButton.className = 'fs-select-all-trasfer';
+
+          // Add a click event
+          newButton.addEventListener('click', function() {
+            document.querySelectorAll('input.transfer-checkbox:not(:checked)').forEach(el => { el.click()});
+
+          });
+
+          // Insert the button after the target element
+          targetElement.parentNode.insertBefore(newButton, targetElement.nextSibling);
+
+        }
+      } catch {}
+
+      GM_addStyle(`
+      button.fs-select-all-trasfer {
+        font-size: 70%;
+        padding: 2px 10px;
+        line-height: 12px;
+        background-color: #4CAF50;
+        border: 3px solid #429146;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        height: 22px;
+      }
+      `);
+
+
     });
+
+    
+    
   }
 } catch {}
 
@@ -254,40 +334,7 @@ async function buildZip(fileUrls, name) {
 }
 
 
-const closeBtn = document.getElementById('fs-file-list-closeBtn');
-const newBtn = document.createElement('button');
-let btnTitle = "Only Unchecked!";
-newBtn.id="onlyUnchecked";
-newBtn.textContent = btnTitle;
-newBtn.addEventListener('click', selectOnlyUnchecked)
-closeBtn.parentNode.insertBefore(newBtn, closeBtn);
 
-function selectOnlyUnchecked() {
-    const uncheckedPosidions = [];
-    document.querySelectorAll('.transfer-checkbox:not(:checked)').forEach(unCh => {
-        uncheckedPosidions.push(unCh.dataset.docId);
-    });
-
-    document.querySelectorAll('#fs-file-list-selector li input[type="checkbox"]').forEach(el => {
-        if(!uncheckedPosidions.includes(el.name)) {
-            el.checked = false;
-        }
-    });
-
-    newBtn.textContent="Select All";
-    newBtn.removeEventListener('click', selectOnlyUnchecked);
-    newBtn.addEventListener('click', selectAll)
-}
-
-function selectAll() {
-    document.querySelectorAll('#fs-file-list-selector li input[type="checkbox"]').forEach(el => {
-        el.checked = true;
-    });
-
-    newBtn.textContent = btnTitle;
-    newBtn.removeEventListener('click', selectAll)
-    newBtn.addEventListener('click', selectOnlyUnchecked);
-}
 
 
 /* =============== Styles =================== */
