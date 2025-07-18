@@ -10,8 +10,7 @@
     input.id = 'toggleSwitch';
 
     // Проверяем localStorage при загрузке
-    const savedUrl = localStorage.getItem('fs-hide-table');
-    if (savedUrl === true) {
+    if (localStorage.getItem('fs-hide-table') == 'true') {
         input.checked = true;
         div.classList.add('fs-half-hide');
     }
@@ -19,7 +18,7 @@
     input.addEventListener('click', () => {
         div.classList.toggle('fs-half-hide');
         if (input.checked) {
-            localStorage.setItem('fs-hide-table', true);
+            localStorage.setItem('fs-hide-table', 'true');
         } else {
             localStorage.removeItem('fs-hide-table');
         }
