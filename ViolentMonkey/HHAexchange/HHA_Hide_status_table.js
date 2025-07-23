@@ -35,7 +35,7 @@
   GM_addStyle(`
      div#fs-divType.fs-half-hide {
        position: relative !important;
-       height: 110px !important;
+       height: 130px !important;
         overflow: hidden;
      }
     /* div - Table styles */
