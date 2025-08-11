@@ -1,0 +1,10 @@
+// ==UserScript==
+// @name        HHA v2 - Hide Footer
+// @namespace   Five Star
+// @match       https://app.hhaexchange.com/ENT*0/Aide/Aide_ns.aspx*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/v2/hide_footer.js
+// @grant       none
+// @version     1.0
+// @author      Rail-S
+// @description 8/11/2025, 1:05:32 PM
+// ==/UserScript==
