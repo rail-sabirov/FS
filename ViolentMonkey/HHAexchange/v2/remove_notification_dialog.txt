@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        HHAexchange v2 - Remove notification dialog ('Important Message from HHAeXchange')
+// @namespace   FiveStar
+// @match       https://app.hhaexchange.com/ENT*10000/*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/v2/remove_notification_dialog.js
+// @grant       none
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 11/3/2023, 1:02:03 PM
+// @run-at document-end
+// ==/UserScript==
