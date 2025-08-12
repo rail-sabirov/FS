@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        HHA v2 - Keep Focus on Search Field
+// @namespace   Five Star
+// @match       https://app.hhaexchange.com/ENT*10000/Aide/CaregiverSearch.aspx*
+// @match       https://app.hhaexchange.com/ENT*10000/Aide/CaregiverSearch_ns.aspx*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/v2/keep_focus_on_search_field.js
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 8/12/2025, 11:41:58 AM
+// @grant GM_addStyle
+// ==/UserScript==
