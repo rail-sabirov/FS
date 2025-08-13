@@ -3,8 +3,8 @@
 // @namespace   FiveStar
 // @include     https://app.hhaexchange.com/ENT*/Patient/InternalPatientInfo.aspx?PatientId=*
 // @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/patient_copy_data.js
-// @grant       none
 // @version     1.0
 // @author      Rail-S.FiveStar
 // @description 8/23/2023, 12:11:10 PM
+// @grant       none
 // ==/UserScript==

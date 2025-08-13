@@ -1,0 +1,12 @@
+// ==UserScript==
+// @name        HHAexchange - copy data for XLS List
+// @namespace   FiveStar
+// @match       https://app.hhaexchange.com/ENT*10000/Aide/Aide.aspx
+// @match       https://app.hhaexchange.com/ENT*/Aide/Aide_ns.aspx*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/v2/caregiver_copy_data_to_list.js
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description "Кнопка для копированния данных для Google XLS - списка терминированных и Перенесенных в HHA"
+// @run-at document-idle
+// ==/UserScript==
+

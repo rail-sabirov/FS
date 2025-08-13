@@ -3,7 +3,6 @@
 // @namespace   FS
 // @match       https://app.hhaexchange.com/ENT*/Aide/Aide.aspx*
 // @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/HHA_Hide_status_table.js
-// @grant       none
 // @version     1.0
 // @author      Rail-S.FS
 // @description 7/17/2025, 11:15:51 AM

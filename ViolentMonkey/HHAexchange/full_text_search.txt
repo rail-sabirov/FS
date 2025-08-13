@@ -3,7 +3,6 @@
 // @namespace   FiveStar
 // @match       https://app.hhaexchange.com/ENT*10000/Aide/CaregiverSearch.aspx*
 // @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/full_text_search.js
-// @grant       none
 // @version     1.0
 // @author      Rail-S.FiveStar
 // @description 8/8/2024, 2:21:58 PM
