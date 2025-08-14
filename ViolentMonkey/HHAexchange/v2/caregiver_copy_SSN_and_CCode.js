@@ -1,17 +1,3 @@
- /* --- Copy SSN onClick event --- */
-copyElementData(
-    '#uxLblPSSN',
-    data => data.target.textContent.replaceAll('-', ''),
-    'Copy Caregiver SSN'
-);
-
-/* --- Copy caregiver code --- */
-copyElementData(
-    '#uxLblPAideCode, #ctl00_ContentPlaceHolder1_uxlblInfoAideInitials',
-    data => data.target.innerText.trim(),
-    'Copy caregiver code'
-);
-
 /*** Functions ******/
 // Check if function exists before declaring
 if (typeof copyTextToClipboard !== 'function') {
@@ -34,7 +20,22 @@ if (typeof copyElementData !== 'function') {
                 });
         } catch {}
     }
-}
+} 
+ 
+ /* --- Copy SSN onClick event --- */
+copyElementData(
+    '#uxLblPSSN',
+    data => data.target.textContent.replaceAll('-', ''),
+    'Copy Caregiver SSN'
+);
+
+/* --- Copy caregiver code --- */
+copyElementData(
+    '#uxLblPAideCode, #ctl00_ContentPlaceHolder1_uxlblInfoAideInitials',
+    data => data.target.innerText.trim(),
+    'Copy caregiver code'
+);
+
 
 /**** Styles ****/
 // Create and inject custom styles for button
