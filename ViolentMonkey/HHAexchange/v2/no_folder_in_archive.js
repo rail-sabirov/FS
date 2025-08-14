@@ -1,54 +1,32 @@
-(function() {
-    let theme = 'big'; // 'big' or 'small'
+try {
+    const curDate = new Date('06/27/2023');
+    const appDate = document.querySelector('#uxlblApplicationDate');
+    if (appDate) {
+        let applicationDate = new Date(appDate.getHTML());
+        const rehireDate = document.getElementById('uxlblRehireDate').innerText;
 
-    // Проверка на существование
-    if (typeof window !== 'undefined' && typeof window.test !== 'undefined') {
-        theme = window.theme;
-    }
+        if (!!rehireDate) {
+          applicationDate = new Date(rehireDate);
+        }
 
-    // Основной алгоритм 
-    try {
-      const curDate = new Date('06/27/2023');
-      const appDate = document.querySelector('#uxlblApplicationDate');
-      if (appDate) {
-          let applicationDate = new Date(appDate.getHTML());
-          const rehireDate = document.getElementById('uxlblRehireDate').innerText;
+        if(applicationDate > curDate) {
+          document.querySelector('body').classList.add('no-folder-in-archive');
+
+          // Добавляем новый элемент #no-folder-in-archive в начало body
+          const newDiv = document.createElement('div');
+          newDiv.id = 'no-folder-in-archive';
 
           if (!!rehireDate) {
-            applicationDate = new Date(rehireDate);
+            newDiv.classList.add('rehire');
           }
+          // Получаем ссылку на первый элемент в body
+          const firstElement = document.body.firstChild;
 
-          if(applicationDate > curDate) {
-
-            if (theme == 'big') {
-              document.querySelector('body').classList.add('no-folder-in-archive');
-
-              // Добавляем новый элемент #no-folder-in-archive в начало body
-              const newDiv = document.createElement('div');
-              newDiv.id = 'no-folder-in-archive';
-
-              if (!!rehireDate) {
-                newDiv.classList.add('rehire');
-              }
-              // Получаем ссылку на первый элемент в body
-              const firstElement = document.body.firstChild;
-
-              // Вставляем новый элемент перед первым элементом
-              document.body.insertBefore(newDiv, firstElement);
-            }
-
-            if (theme == 'small') {
-              const el = document.querySelector('#tdVisitCaseCountReskin');
-              if (el) {
-                el.classList.add('fs-no-folder');
-              }
-            }
-          }
-      }
-  } catch {}
-})();
-
-
+          // Вставляем новый элемент перед первым элементом
+          document.body.insertBefore(newDiv, firstElement);
+        }
+    }
+} catch {}
 
 // --- Styles ------------------------------------
 const style = document.createElement('style');

@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        HHAexchange - No Folder in archive room (probably)
+// @namespace   FiveStar
+// @match       https://app.hhaexchange.com/ENT*/Aide/Aide.aspx*
+// @match       https://app.hhaexchange.com/ENT*/Aide/Aide_ns.aspx*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/v2/no_folder_in_archive-small.js
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 8/14/2025, 13:45:25
+// @grant none
+// ==/UserScript==
