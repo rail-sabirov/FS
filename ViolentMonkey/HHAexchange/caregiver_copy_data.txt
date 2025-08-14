@@ -2,6 +2,7 @@
 // @name        HHAexchange - copy caregiver data
 // @namespace   FiveStar
 // @include     https://app.hhaexchange.com/ENT*/Aide/Aide.aspx?AideId=*
+// @include     https://app.hhaexchange.com/ENT*/Aide/Aide_ns.aspx?AideId=*
 // @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/caregiver_copy_data.js
 // @version     1.0
 // @author      Rail-S.FiveStar

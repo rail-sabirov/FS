@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        HHA v2 - Copy Caregiver Data For Archive
+// @namespace   FiveStar
+// @match     https://app.hhaexchange.com/ENT*/Aide/Aide.aspx?AideId=*
+// @match    https://app.hhaexchange.com/ENT*/Aide/Aide_ns.aspx?AideId=*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/v2/caregiver_copy_data.js
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 8/23/2023, 12:11:10 PM
+// @grant       none
+// ==/UserScript==
