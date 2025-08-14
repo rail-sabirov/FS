@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name        HHA v2 - Copy Caregiver SSN or Caregiver Code
+// @namespace   FiveStar
+// @match     https://app.hhaexchange.com/ENT*/Aide/Aide.aspx?AideId=*
+// @match    https://app.hhaexchange.com/ENT*/Aide/Aide_ns.aspx?AideId=*
+// @require     https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/HHAexchange/v2/caregiver_copy_SSN_and_CCode.js
+// @version     1.0
+// @author      Rail-S.FiveStar
+// @description 8/14/2025, 11:21:10 AM
+// @grant       none
+// ==/UserScript==

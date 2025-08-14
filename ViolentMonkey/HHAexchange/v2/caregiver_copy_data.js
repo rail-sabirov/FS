@@ -1,25 +1,11 @@
-function copyTextToClipboard(text) {
-    navigator.clipboard.writeText(text);
+// Check if function exists before declaring
+if (typeof copyTextToClipboard !== 'function') {
+    function copyTextToClipboard(text) {
+        navigator.clipboard.writeText(text);
+    }
 }
 
-/* --- Function for copy to clipboard - Set by tag Click event for copy to clipboard ---*/
-function copyElementData(elementSelector, callback, title = '', addClass = 'fs-hover-red-border') {
-    try {
-        document.addEventListener('DOMContentLoaded', () => {
-            const elements = document.querySelectorAll(elementSelector);
-            
-            elements.forEach(element => {
-                element.classList.add(addClass);
-                element.setAttribute('title', title);
-                element.addEventListener('click', (ev) => {
-                    copyTextToClipboard(callback(ev));
-                });
-            });
-        });
-    } catch {}
-}
-
-
+// Copy Caregiver Data for FS-Archive - Create a new Caregiver
 try {
     const hdrDemographics = document.getElementById('hdrDemographics');
     if (hdrDemographics) {
@@ -65,22 +51,6 @@ try {
     }
 
 
-    /* --- Copy caregiver code --- */
-    copyElementData('#uxLblPAideCode, #ctl00_ContentPlaceHolder1_uxlblInfoAideInitials',
-        data => data
-            .target
-            .innerText
-            .trim(),
-        'Copy caregiver code');
-
-    /* --- Copy SSN onClick event --- */
-    const ssnElement = document.getElementById('uxLblPSSN');
-    if (ssnElement) {
-        ssnElement.addEventListener('click', (el) => {
-            const ssn = el.target.textContent.replaceAll('-', '');
-            copyTextToClipboard(ssn);
-        });
-    }
 } catch {}    
 
 // Create and inject custom styles for button
