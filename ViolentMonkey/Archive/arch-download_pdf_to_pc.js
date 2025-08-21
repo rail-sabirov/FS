@@ -215,6 +215,8 @@ try {
         font-weight: bold;
         text-transform: uppercase;
         height: 22px;
+        position: relative;
+        top: 5px;
       }
       `);
 
