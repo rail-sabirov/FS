@@ -2,7 +2,7 @@
 // @name         Arch: Transfer Counter (Refactored)
 // @namespace    FiveStar
 // @version      2025-08-21
-// @description  Выводим общий счетчик переданных файлов в HHA
+// @description  Display total counter of transferred files in HHA
 // @author       Rail-S
 // @match        https://fivestararchive.com/index.php?r=caregiver%2Fview*
 // @match        https://fivestararchive.com/index.php?r=caregiver/view*
@@ -16,7 +16,7 @@ const CONFIG = {
     headerClass: 'fs-doc-panel-header'
 };
 
-// Утилиты для работы с URL и ID
+// Utilities for working with URL and ID
 class URLUtils {
     static _caregiverId = null;
     
@@ -29,7 +29,7 @@ class URLUtils {
     }
 }
 
-// Утилиты для работы с DOM
+// Utilities for working with DOM
 class DOMUtils {
     static addHeaderClass() {
         try {
@@ -38,7 +38,7 @@ class DOMUtils {
                 header.classList.add(CONFIG.headerClass);
             }
         } catch (error) {
-            console.warn('Не удалось добавить класс к заголовку:', error);
+            console.warn('Failed to add class to header:', error);
         }
     }
 
@@ -49,10 +49,10 @@ class DOMUtils {
         if (isAll) {
             div.classList.add('fs-transfer-green');
             div.textContent = 'All';
-            div.title = `Все документы переданы: ${docs}`;
+            div.title = `All documents transferred: ${docs}`;
         } else {
             div.textContent = `${docs} / ${transfered}`;
-            div.title = `Документов: ${docs}, Передано: ${transfered}`;
+            div.title = `Documents: ${docs}, Transferred: ${transfered}`;
         }
         
         return div;
@@ -68,7 +68,7 @@ class DOMUtils {
     }
 }
 
-// Работа с API и данными
+// Working with API and data
 class DataService {
     static async fetchTransferData(url) {
         try {
@@ -90,7 +90,7 @@ class DataService {
                 isAll: docs === transfered
             };
         } catch (error) {
-            console.error('Ошибка при получении данных:', error);
+            console.error('Error fetching data:', error);
             return {
                 docs: 0,
                 transfered: 0,
@@ -106,14 +106,14 @@ class DataService {
     static saveToLocalStorage(data, caregiverId) {
         try {
             if (!caregiverId) {
-                console.warn('Не указан ID caregiver для сохранения');
+                console.warn('Caregiver ID not specified for saving');
                 return;
             }
 
-            // Получаем существующие данные или создаем новый объект
+            // Get existing data or create new object
             let allData = DataService.getAllLocalStorageData();
             
-            // Очищаем данные других caregiver'ов, оставляем только текущий
+            // Clear data of other caregivers, keep only current one
             allData = {
                 [caregiverId]: {
                     docs: data.docs,
@@ -122,25 +122,25 @@ class DataService {
                 }
             };
 
-            // Сохраняем обновленные данные
+            // Save updated data
             localStorage.setItem(CONFIG.lsKeyName, JSON.stringify(allData));
-            console.log(`Сохранены данные для caregiver ID: ${caregiverId}`);
+            console.log(`Data saved for caregiver ID: ${caregiverId}`);
         } catch (error) {
-            console.error('Ошибка сохранения в localStorage:', error);
+            console.error('Error saving to localStorage:', error);
         }
     }
 
     static loadFromLocalStorage(caregiverId) {
         try {
             if (!caregiverId) {
-                console.warn('Не указан ID caregiver для загрузки');
+                console.warn('Caregiver ID not specified for loading');
                 return null;
             }
 
             const allData = DataService.getAllLocalStorageData();
             return allData[caregiverId] || null;
         } catch (error) {
-            console.error('Ошибка загрузки из localStorage:', error);
+            console.error('Error loading from localStorage:', error);
             return null;
         }
     }
@@ -150,13 +150,13 @@ class DataService {
             const data = localStorage.getItem(CONFIG.lsKeyName);
             return data ? JSON.parse(data) : {};
         } catch (error) {
-            console.error('Ошибка получения всех данных из localStorage:', error);
+            console.error('Error getting all data from localStorage:', error);
             return {};
         }
     }
 }
 
-// Управление стилями
+// Style management
 class StyleManager {
     static applyStyles() {
         const styleElement = document.createElement('style');
@@ -186,23 +186,23 @@ class StyleManager {
     }
 }
 
-// Основной класс приложения
+// Main application class
 class TransferCounter {
     static async updateCounter() {
         try {
             const caregiverId = URLUtils.getCurrentCaregiverId();
             if (!caregiverId) {
-                console.warn('Не удалось получить ID caregiver из URL');
+                console.warn('Failed to get caregiver ID from URL');
                 return null;
             }
 
             const url = DataService.getMainFolderUrl(caregiverId);
             const transferData = await DataService.fetchTransferData(url);
             
-            // Сохраняем данные с ID caregiver'а
+            // Save data with caregiver ID
             DataService.saveToLocalStorage(transferData, caregiverId);
             
-            // Создаем и вставляем счетчик
+            // Create and insert counter
             const counterElement = DOMUtils.createCounterElement(
                 transferData.docs, 
                 transferData.transfered, 
@@ -211,12 +211,12 @@ class TransferCounter {
             
             const inserted = DOMUtils.insertCounter(counterElement);
             if (!inserted) {
-                console.warn('Не удалось вставить счетчик в DOM');
+                console.warn('Failed to insert counter into DOM');
             }
             
             return transferData;
         } catch (error) {
-            console.error('Ошибка обновления счетчика:', error);
+            console.error('Error updating counter:', error);
             throw error;
         }
     }
@@ -225,17 +225,17 @@ class TransferCounter {
         try {
             const caregiverId = URLUtils.getCurrentCaregiverId();
             if (!caregiverId) {
-                console.warn('Не удалось получить ID caregiver из URL');
+                console.warn('Failed to get caregiver ID from URL');
                 return;
             }
 
-            // Проверяем есть ли сохраненные данные для этого caregiver'а
+            // Check if there is saved data for this caregiver
             const savedData = DataService.loadFromLocalStorage(caregiverId);
             
             if (savedData) {
-                console.log(`Найдены сохраненные данные для caregiver ID: ${caregiverId}`);
+                console.log(`Found saved data for caregiver ID: ${caregiverId}`);
                 
-                // Отображаем сохраненные данные
+                // Display saved data
                 const counterElement = DOMUtils.createCounterElement(
                     savedData.docs,
                     savedData.transfered,
@@ -244,16 +244,16 @@ class TransferCounter {
                 
                 const inserted = DOMUtils.insertCounter(counterElement);
                 if (!inserted) {
-                    console.warn('Не удалось вставить счетчик в DOM');
+                    console.warn('Failed to insert counter into DOM');
                 }
             } else {
-                console.log(`Данные для caregiver ID: ${caregiverId} не найдены, получаем через fetch`);
+                console.log(`Data for caregiver ID: ${caregiverId} not found, fetching via API`);
                 
-                // Получаем данные через fetch
+                // Get data via fetch
                 await this.updateCounter();
             }
         } catch (error) {
-            console.error('Ошибка инициализации счетчика:', error);
+            console.error('Error initializing counter:', error);
         }
     }
 
@@ -261,7 +261,7 @@ class TransferCounter {
         try {
             const caregiverId = URLUtils.getCurrentCaregiverId();
             if (!caregiverId) {
-                console.warn('Не удалось получить ID caregiver из URL');
+                console.warn('Failed to get caregiver ID from URL');
                 return false;
             }
 
@@ -284,7 +284,7 @@ class TransferCounter {
             }
             return false;
         } catch (error) {
-            console.error('Ошибка обновления из localStorage:', error);
+            console.error('Error updating from localStorage:', error);
             return false;
         }
     }
@@ -294,53 +294,53 @@ class TransferCounter {
         if (fileInput) {
             fileInput.addEventListener('change', async function(event) {
                 if (event.target.files && event.target.files.length > 0) {
-                    console.log('Файл загружен, обновляем счетчик');
+                    console.log('File uploaded, updating counter');
                     
                     const caregiverId = URLUtils.getCurrentCaregiverId();
                     if (!caregiverId) {
-                        console.warn('Не удалось получить ID caregiver из URL');
+                        console.warn('Failed to get caregiver ID from URL');
                         return;
                     }
                     
-                    // Увеличиваем количество docs в localStorage
+                    // Increase docs count in localStorage
                     const savedData = DataService.loadFromLocalStorage(caregiverId);
                     if (savedData) {
                         savedData.docs += 1;
                         DataService.saveToLocalStorage(savedData, caregiverId);
                         
-                        // Обновляем отображение счетчика
+                        // Update counter display
                         await TransferCounter.renewCounterFromLocalStorage();
                     }
                 }
             });
         } else {
-            // Если элемент еще не загружен, попробуем позже
+            // If element is not loaded yet, try again later
             setTimeout(() => TransferCounter.setupFileUploadHandler(), 1000);
         }
     }
 
     static setupFileDeleteHandler() {
-        // Находим все формы удаления файлов
+        // Find all file deletion forms
         const deleteForms = document.querySelectorAll('.fs-delete-file-form');
         
         deleteForms.forEach(form => {
             form.addEventListener('submit', async function(event) {
-                console.log('Файл удален, обновляем счетчик');
+                console.log('File deleted, updating counter');
                 
                 const caregiverId = URLUtils.getCurrentCaregiverId();
                 if (!caregiverId) {
-                    console.warn('Не удалось получить ID caregiver из URL');
+                    console.warn('Failed to get caregiver ID from URL');
                     return;
                 }
                 
-                // Уменьшаем количество docs в localStorage
+                // Decrease docs count in localStorage
                 const savedData = DataService.loadFromLocalStorage(caregiverId);
                 if (savedData && savedData.docs > 0) {
                     savedData.docs -= 1;
                     DataService.saveToLocalStorage(savedData, caregiverId);
                     
-                    // Обновляем отображение счетчика с небольшой задержкой
-                    // чтобы дать время на обработку удаления
+                    // Update counter display with small delay
+                 // to give time for deletion processing
                     setTimeout(async () => {
                         await TransferCounter.renewCounterFromLocalStorage();
                     }, 500);
@@ -348,27 +348,27 @@ class TransferCounter {
             });
         });
         
-        // Если формы еще не загружены, попробуем позже
+        // If forms are not loaded yet, try again later
         if (deleteForms.length === 0) {
             setTimeout(() => TransferCounter.setupFileDeleteHandler(), 1000);
         }
     }
 
     static setupTransferCheckboxHandler() {
-        // Находим все чекбоксы для отметки переданных документов
+        // Find all checkboxes for marking transferred documents
         const transferCheckboxes = document.querySelectorAll('.transfer-checkbox');
         
         transferCheckboxes.forEach(checkbox => {
             checkbox.addEventListener('change', async function(event) {
-                console.log('Чекбокс изменен, обновляем счетчик transfered');
+                console.log('Checkbox changed, updating transferred counter');
                 
                 const caregiverId = URLUtils.getCurrentCaregiverId();
                 if (!caregiverId) {
-                    console.warn('Не удалось получить ID caregiver из URL');
+                    console.warn('Failed to get caregiver ID from URL');
                     return;
                 }
                 
-                // Изменяем количество transfered в localStorage
+                // Change transferred count in localStorage
                 const savedData = DataService.loadFromLocalStorage(caregiverId);
                 if (savedData) {
                     if (event.target.checked) {
@@ -378,13 +378,13 @@ class TransferCounter {
                     }
                     DataService.saveToLocalStorage(savedData, caregiverId);
                     
-                    // Обновляем отображение счетчика
+                    // Update counter display
                     await TransferCounter.renewCounterFromLocalStorage();
                 }
             });
         });
         
-        // Если чекбоксы еще не загружены, попробуем позже
+        // If checkboxes are not loaded yet, try again later
         if (transferCheckboxes.length === 0) {
             setTimeout(() => TransferCounter.setupTransferCheckboxHandler(), 1000);
         }
@@ -392,45 +392,45 @@ class TransferCounter {
 
     static async initialize() {
         try {
-            // Применяем стили
+            // Apply styles
             StyleManager.applyStyles();
             
-            // Добавляем класс к заголовку
+            // Add class to header
             DOMUtils.addHeaderClass();
             
-            // Инициализируем счетчик (проверяем localStorage или получаем данные через fetch)
+            // Initialize counter (check localStorage or fetch data via API)
             await this.initializeCounter();
             
-            console.log('Transfer Counter инициализирован успешно');
+            console.log('Transfer Counter initialized successfully');
         } catch (error) {
-            console.error('Ошибка инициализации Transfer Counter:', error);
+            console.error('Error initializing Transfer Counter:', error);
         }
     }
 }
 
 
 
-// Главный код без функций - запуск асинхронных функций
+// Main code without functions - launching asynchronous functions
 (async function main() {
     'use strict';
     
-    // Ждем загрузки DOM если необходимо
+    // Wait for DOM loading if necessary
     if (document.readyState === 'loading') {
         await new Promise(resolve => {
             document.addEventListener('DOMContentLoaded', resolve);
         });
     }
     
-    // Запускаем инициализацию
+    // Start initialization
     await TransferCounter.initialize();
     
-    // Настраиваем обработчики для файлов
+    // Set up file handlers
     TransferCounter.setupFileUploadHandler();
     TransferCounter.setupFileDeleteHandler();
     
-    // Настраиваем обработчик для чекбоксов переданных документов
+    // Set up handler for transferred documents checkboxes
     TransferCounter.setupTransferCheckboxHandler();
     
 })().catch(error => {
-    console.error('Критическая ошибка в main():', error);
+    console.error('Critical error in main():', error);
 });
