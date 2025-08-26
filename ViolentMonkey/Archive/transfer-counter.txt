@@ -1,0 +1,12 @@
+// ==UserScript==
+// @name         Arch: Transfer Counter
+// @namespace    FiveStar
+// @version      2025-08-20
+// @description  Выводим общий счетчик пернесенных файлов в HHA
+// @author       Rail-S
+// @match        https://fivestararchive.com/index.php?r=caregiver%2Fview*
+// @match        https://fivestararchive.com/index.php?r=caregiver/view*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=fivestarhomecareny.com
+// @require      https://raw.githubusercontent.com/rail-sabirov/FS/main/ViolentMonkey/Archive/transfer-counter.js
+// @grant        none
+// ==/UserScript==
