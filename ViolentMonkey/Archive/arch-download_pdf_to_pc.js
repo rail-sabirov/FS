@@ -169,7 +169,8 @@ try {
 
               // Generate ZIP archive
               if (files.length > 0) {
-                const name = document.querySelector('.fs-caregiver-name b:first-child').innerText.trim().replaceAll(' ', '_');
+                const caregiverCode = document.querySelector('.fs-caregiver-name b:nth-child(2)').innerHTML.trim();
+                const name = `${caregiverCode}-${document.querySelector('.fs-caregiver-name b:first-child').innerText.trim().replaceAll(' ', '_')}`;
 
                 // Generate Zip file
                 (async () => {
